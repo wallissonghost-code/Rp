@@ -1,0 +1,18 @@
+{
+  "name": "Arcana — Batalha de Cartas",
+  "short_name": "Arcana",
+  "description": "Lobby de jogo de cartas 2D",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090d1d",
+  "theme_color": "#0d1024",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
