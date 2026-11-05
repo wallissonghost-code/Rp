@@ -3,10 +3,10 @@ window.arcanaArena=async function(root){
  root.replaceChildren();root.className="arcana-battle";
  const header=document.createElement("header");header.className="arcana-status";
  const player=document.createElement("strong");player.textContent=document.getElementById("player-name")?.textContent||"Invocador";
- const status=document.createElement("small");status.textContent="Campo em preparação · combate indisponível";
+ const status=document.createElement("small");status.textContent="BOT ARCANA · partida demonstrativa · combate indisponível";
  header.append(player,status);
  const field=document.createElement("section");field.className="arcana-battlefield";
- for(const [side,label] of [["enemy","CAMPO ADVERSÁRIO"],["own","SEU CAMPO"]]){
+ for(const [side,label] of [["enemy","BOT ARCANA · CAMPO ADVERSÁRIO"],["own","SEU CAMPO"]]){
   const area=document.createElement("div");area.className="arcana-side "+side;
   const heading=document.createElement("div");heading.className="arcana-side-label";heading.textContent=label;
   const slots=document.createElement("div");slots.className="arcana-slots";
