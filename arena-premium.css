@@ -39,3 +39,15 @@
 .arcana-side.enemy{padding-bottom:12px}.arcana-side.own{padding-top:12px;padding-bottom:clamp(92px,18dvh,160px)}
 @media(max-height:620px){.arcana-hand{max-height:25dvh}.arcana-hand-card{min-height:45px}.arcana-side.own{padding-bottom:clamp(75px,17dvh,110px)}}
 @media(min-width:800px){.arcana-battle{max-width:none;margin:0;border:0}}
+
+/* ARCANA 0.5.1: eleven card positions + one mirrored habitat per side. */
+.arcana-battle{--slot:clamp(49.28px,11.76vw,91.84px)}
+.arcana-side{position:relative}
+.arcana-slots{width:min(100%,calc(6 * var(--slot) + 5 * clamp(3px,.9vw,10px)));display:grid;grid-template-columns:repeat(6,minmax(0,var(--slot)));grid-auto-rows:calc(var(--slot) * 1.32);justify-content:center;align-content:center;gap:clamp(3px,.9vw,10px)}
+.arcana-slot{width:100%;height:100%;min-width:0}
+.arcana-habitat{position:absolute;top:50%;left:max(3px,env(safe-area-inset-left));transform:translateY(-50%);width:clamp(29px,8vw,64px);height:clamp(50px,13vw,95px);border:2px solid #78b995a0;border-radius:8px;background:linear-gradient(145deg,#355d5480,#121d31d9);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 14px #0007;pointer-events:none}
+.arcana-habitat span{font-size:clamp(7px,1.7vw,10px);font-weight:800;letter-spacing:.01em;color:#d3f3d9;writing-mode:vertical-rl;transform:rotate(180deg)}
+.arcana-side.enemy .arcana-habitat{left:auto;right:max(3px,env(safe-area-inset-right));border-color:#b8a0d8a0;background:linear-gradient(145deg,#55406b9c,#1b1733d9)}
+.arcana-side.enemy .arcana-habitat span{color:#e3d5f4}
+@media(max-width:450px){.arcana-slots{transform:translateX(0)}.arcana-side{padding-left:6px;padding-right:6px}.arcana-side-label{font-size:10px}.arcana-habitat{z-index:2}}
+@media(max-height:620px){.arcana-slots{grid-auto-rows:calc(var(--slot) * 1.12)}}
