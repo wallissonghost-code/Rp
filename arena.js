@@ -17,7 +17,7 @@ window.arcanaArena=async function(root){
  const hand=document.createElement("footer");hand.className="arcana-hand";
  const title=document.createElement("div");title.className="arcana-hand-title";title.textContent="SUA COLEÇÃO";
  const cards=document.createElement("div");cards.className="arcana-hand-cards";
- const notice=document.createElement("p");notice.className="arcana-notice";notice.textContent="Prévia de cartas reais. Monte um deck e habilite as regras antes de jogar.";
+ const notice=document.createElement("p");notice.className="arcana-notice";notice.textContent="Prévia da coleção. O sistema de combate ainda está em desenvolvimento.";
  hand.append(title,cards,notice);root.append(header,field,hand);
  if(!window.arcanaSession){notice.textContent="Entre na conta para visualizar suas cartas.";return}
  try{
