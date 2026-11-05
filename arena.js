@@ -10,9 +10,11 @@ window.arcanaArena=async function(root){
   const area=document.createElement("div");area.className="arcana-side "+side;
   const heading=document.createElement("div");heading.className="arcana-side-label";heading.textContent=label;
   const slots=document.createElement("div");slots.className="arcana-slots";
-  // Five visual placeholders, not an assertion of battle rules.
-  for(let i=0;i<5;i++){const slot=document.createElement("div");slot.className="arcana-slot";slot.setAttribute("aria-label","Posição visual "+(i+1)+" indisponível");slots.append(slot)}
-  area.append(heading,slots);field.append(area);
+  // Eleven creature positions per side, in two rows; visual only.
+  for(let i=0;i<11;i++){const slot=document.createElement("div");slot.className="arcana-slot";slot.setAttribute("aria-label","Posição visual "+(i+1)+" indisponível");slots.append(slot)}
+  const habitat=document.createElement("div");habitat.className="arcana-habitat";habitat.setAttribute("aria-label","Posição de habitat indisponível");
+  const habitatLabel=document.createElement("span");habitatLabel.textContent="HABITAT";habitat.append(habitatLabel);
+  area.append(heading,slots,habitat);field.append(area);
  }
  const hand=document.createElement("footer");hand.className="arcana-hand";
  const title=document.createElement("div");title.className="arcana-hand-title";title.textContent="SUA COLEÇÃO";
