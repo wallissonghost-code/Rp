@@ -49,5 +49,5 @@
 .arcana-habitat span{font-size:clamp(7px,1.7vw,10px);font-weight:800;letter-spacing:.01em;color:#d3f3d9;writing-mode:vertical-rl;transform:rotate(180deg)}
 .arcana-side.enemy .arcana-habitat{left:auto;right:max(3px,env(safe-area-inset-right));border-color:#b8a0d8a0;background:linear-gradient(145deg,#55406b9c,#1b1733d9)}
 .arcana-side.enemy .arcana-habitat span{color:#e3d5f4}
-@media(max-width:450px){.arcana-slots{transform:translateX(0)}.arcana-side{padding-left:6px;padding-right:6px}.arcana-side-label{font-size:10px}.arcana-habitat{z-index:2}}
+@media(max-width:450px){.arcana-side.own .arcana-slots{transform:translateX(12px)}.arcana-side.enemy .arcana-slots{transform:translateX(-12px)}.arcana-side{padding-left:6px;padding-right:6px}.arcana-side-label{font-size:10px}.arcana-habitat{z-index:2}}
 @media(max-height:620px){.arcana-slots{grid-auto-rows:calc(var(--slot) * 1.12)}}
