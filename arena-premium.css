@@ -24,3 +24,18 @@
 @media(min-width:800px){.arcana-battle{max-width:1100px;margin:auto;border-left:1px solid #6b5380;border-right:1px solid #6b5380}.arcana-status{padding-left:110px}}
 @media(max-height:620px){.arcana-hand{min-height:80px;padding-top:4px}.arcana-hand-card{min-height:60px}.arcana-side{gap:4px}.arcana-slot{height:calc(var(--slot) * 1.12)}}
 @media(prefers-reduced-motion:reduce){.arcana-battle *{animation:none!important;transition:none!important}}
+
+/* Full viewport arena: the board itself owns both halves of the screen. */
+.screen.arena-mode,.screen.arena-mode .panel,.screen.arena-mode #content{height:100%;height:100dvh;min-height:0;width:100%;margin:0}
+.screen.arena-mode #content{overflow:hidden!important}
+.arcana-battle{position:relative!important;width:100%;height:100%;height:100dvh;max-height:100dvh;display:block!important;overflow:hidden}
+.arcana-battlefield{position:absolute;inset:0;width:100%;height:100%;display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1fr)}
+.arcana-side{height:100%;min-height:0;justify-content:center;padding:clamp(40px,8dvh,78px) 8px}
+.arcana-status{position:absolute;z-index:5;top:0;left:0;right:0;min-height:48px;padding-top:calc(8px + env(safe-area-inset-top));padding-bottom:7px;pointer-events:none}
+.arcana-hand{position:absolute;z-index:5;bottom:0;left:0;right:0;min-height:0;max-height:min(25dvh,175px);padding:6px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:linear-gradient(transparent,#090d20e8 18%,#090d20f5);border-top:1px solid #a7876c44}
+.arcana-hand-cards{margin-top:4px;min-height:0;max-height:clamp(50px,12dvh,94px)}
+.arcana-hand-card{min-height:clamp(50px,10dvh,76px)}
+.arcana-notice{font-size:10px;margin:3px 0 0;line-height:1.2}
+.arcana-side.enemy{padding-bottom:12px}.arcana-side.own{padding-top:12px;padding-bottom:clamp(92px,18dvh,160px)}
+@media(max-height:620px){.arcana-hand{max-height:25dvh}.arcana-hand-card{min-height:45px}.arcana-side.own{padding-bottom:clamp(75px,17dvh,110px)}}
+@media(min-width:800px){.arcana-battle{max-width:none;margin:0;border:0}}
