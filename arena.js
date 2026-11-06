@@ -36,6 +36,17 @@ window.arcanaArena=async function(root){
   enemyHand.replaceChildren();
   for(let i=0;i<enemyCards.length;i++){const back=document.createElement("div");back.className="arcana-enemy-card";back.setAttribute("aria-label","Carta oculta do bot");back.textContent="✧";enemyHand.append(back)}
  }
+
+ function startDrag(e,tile,card){
+  if(loading||e.button!==0)return;
+  e.preventDefault();tile.setPointerCapture(e.pointerId);
+  const ghost=tile.cloneNode(true);ghost.classList.add("arcana-drag-ghost");document.body.append(ghost);
+  const move=ev=>{ghost.style.left=ev.clientX+"px";ghost.style.top=ev.clientY+"px"};
+  const clean=()=>{ghost.remove();tile.removeEventListener("pointermove",move);tile.removeEventListener("pointerup",up);tile.removeEventListener("pointercancel",cancel)};
+  const cancel=()=>{clean();notice.textContent="Jogada cancelada."};
+  const up=ev=>{ghost.style.display="none";const el=document.elementFromPoint(ev.clientX,ev.clientY);const target=el&&el.closest(".arcana-grave,.arcana-side.own .arcana-slot,.arcana-side.own .arcana-habitat");clean();if(!target){notice.textContent="Jogada cancelada.";return}if(target===grave){const i=inHand.indexOf(card);if(i>=0){inHand.splice(i,1);graveyard.push(card);render();notice.textContent=card.name+" enviada ao cemitério."}return}if(placements.has(target)){notice.textContent="Slot ocupado.";return}if((target===habitatSlot)!==(card.card_type==="environment")){notice.textContent="Posição incompatível com a carta.";return}preview(card,target)};
+  tile.addEventListener("pointermove",move);tile.addEventListener("pointerup",up);tile.addEventListener("pointercancel",cancel);move(e);
+ }
  function draw(){if(inHand.length>=HAND_LIMIT){notice.textContent="Mão cheia: máximo de 5 cartas.";return}if(!pile.length){notice.textContent="Seu baralho acabou.";return}inHand.push(pile.pop());render();notice.textContent="Carta comprada · "+pile.length+" restantes no baralho";}
  deck.addEventListener("click",draw);
  notice.textContent="Preparando os baralhos...";
