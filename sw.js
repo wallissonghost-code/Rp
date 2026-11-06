@@ -1,5 +1,5 @@
 /* ARCANA PWA v26: network-first documents and code; offline fallback. */
-const CACHE='arcana-lobby-v36';
+const CACHE='arcana-lobby-v37';
 const ASSETS=['./','./index.html','./navigation.js','./lobby-premium.css','./account.js','./arena.js','./arena-premium.css','./shop.js','./collection-premium.css','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
