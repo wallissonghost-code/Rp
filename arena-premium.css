@@ -70,3 +70,12 @@
 
 /* v0.5.10: exactly 10 standard positions, two rows of five, plus Habitat. */
 .arcana-slots{grid-template-columns:repeat(5,minmax(0,var(--slot)));width:min(100%,calc(5 * var(--slot) + 4 * clamp(3px,.9vw,10px)))}
+
+.arcana-hand-card{touch-action:none;user-select:none}
+.arcana-drag-ghost{position:fixed!important;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);opacity:.85;width:90px}
+.arcana-grave{flex-shrink:0;align-self:center;background:#322044;color:#f3d4ff;border:1px solid #b98ade;border-radius:12px;padding:10px 5px;min-height:56px}
+.arcana-occupied{background:#43305c!important;border:2px solid #c7a3ed!important;display:flex;align-items:center;justify-content:center}
+.arcana-placed-name{font-size:clamp(9px,1.4vw,14px);color:#ffe8b0;text-align:center;overflow-wrap:anywhere}
+.arcana-play-overlay{position:absolute;inset:0;z-index:200;background:#09051bd9;display:flex;align-items:center;justify-content:center;padding:12px}
+.arcana-play-panel{width:min(350px,92vw);display:flex;flex-direction:column;gap:12px;padding:20px;background:#261936;border:1px solid #c99be8;border-radius:16px;color:#fff;text-align:center}
+.arcana-play-panel select,.arcana-play-panel button{min-height:40px;padding:8px;border-radius:9px;background:#422959;color:white;border:1px solid #ad85c7}
