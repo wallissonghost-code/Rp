@@ -1,5 +1,5 @@
 if(!document.querySelector('link[data-arcana-collection]')){const css=document.createElement('link');css.rel='stylesheet';css.href='./collection-premium.css';css.dataset.arcanaCollection='';document.head.append(css)}
-if(!document.querySelector('link[data-arcana-arena]')){const css=document.createElement('link');css.rel='stylesheet';css.href='./arena-premium.css?v=059';css.dataset.arcanaArena='';document.head.append(css)}
+if(!document.querySelector('link[data-arcana-arena]')){const css=document.createElement('link');css.rel='stylesheet';css.href='./arena-premium.css?v=0510';css.dataset.arcanaArena='';document.head.append(css)}
 const info={"Jogar":"","Coleção":"Cartas de todas as raridades ficarão disponíveis nesta área.","Loja":"Invocações e recursos disponíveis.","Invocação":"Invoque cartas usando moedas.","Configurações":"Preferências do jogo.","Perfil":"Seu progresso e suas conquistas aparecerão aqui.","Torneios":"Competições do ARCANA."};const screen=document.getElementById('screen');
 const dock=document.createElement('footer');dock.className='arcana-page-dock bottom';
 const dockNav=document.createElement('nav');dockNav.className='actions';dockNav.setAttribute('aria-label','Navegação principal');
