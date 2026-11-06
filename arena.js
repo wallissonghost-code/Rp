@@ -19,7 +19,8 @@ window.arcanaArena=async function(root){
  hand.append(cards,deck,notice);root.append(field,enemyHand,hand);
  let pile=[],inHand=[],enemyPile=[],enemyCards=[],loading=true;
  const shuffle=arr=>{for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr};
- const buildPile=(catalog,owned)=>{const byCode=new Map(catalog.map(c=>[c.code,c]));const out=[];for(const o of owned){const card=byCode.get(o.card_code);if(!card)continue;for(let i=0;i<Math.min(Math.max(0,Number(o.copies)||0),100);i++)out.push({...card,level:o.upgrade_level||1})}return shuffle(out)};
+ const DECK_LIMIT=20, HAND_LIMIT=5;
+ const buildPile=(catalog,owned)=>{const byCode=new Map(catalog.map(c=>[c.code,c]));const out=[];const seen=new Set();for(const o of owned){if(Number(o.copies)<=0||seen.has(o.card_code))continue;const card=byCode.get(o.card_code);if(!card)continue;seen.add(o.card_code);out.push({...card,level:o.upgrade_level||1})}return shuffle(out).slice(0,DECK_LIMIT)};
  function render(){
   cards.replaceChildren();
   for(const card of inHand){
@@ -30,12 +31,12 @@ window.arcanaArena=async function(root){
    tile.append(glyph,name,meta);tile.onclick=()=>{notice.textContent=card.name+" selecionada. Posicionamento em desenvolvimento."};cards.append(tile);
   }
   const counter=deck.querySelector(".arcana-deck-count");counter.textContent=String(pile.length);
-  deck.disabled=loading||!pile.length;
-  deck.title=pile.length?"Comprar uma carta ("+pile.length+" restantes)":"Baralho vazio";
+  deck.disabled=loading||!pile.length||inHand.length>=HAND_LIMIT;
+  deck.title=inHand.length>=HAND_LIMIT?"Mão cheia: máximo de 5 cartas":pile.length?"Comprar uma carta ("+pile.length+" restantes)":"Baralho vazio";
   enemyHand.replaceChildren();
   for(let i=0;i<enemyCards.length;i++){const back=document.createElement("div");back.className="arcana-enemy-card";back.setAttribute("aria-label","Carta oculta do bot");back.textContent="✧";enemyHand.append(back)}
  }
- function draw(){if(!pile.length){notice.textContent="Seu baralho acabou.";return}inHand.push(pile.pop());render();notice.textContent="Carta comprada · "+pile.length+" restantes no baralho";}
+ function draw(){if(inHand.length>=HAND_LIMIT){notice.textContent="Mão cheia: máximo de 5 cartas.";return}if(!pile.length){notice.textContent="Seu baralho acabou.";return}inHand.push(pile.pop());render();notice.textContent="Carta comprada · "+pile.length+" restantes no baralho";}
  deck.addEventListener("click",draw);
  notice.textContent="Preparando os baralhos...";
  render();
@@ -50,10 +51,10 @@ window.arcanaArena=async function(root){
   pile=buildPile(catalog,owned);
   // Bot deck is temporary client-side test data from the real catalog.
   // No claim of server-backed bot inventory or authoritative matchmaking.
-  enemyPile=shuffle(catalog.map(card=>({...card,level:1})));
+  enemyPile=shuffle(catalog.map(card=>({...card,level:1}))).slice(0,DECK_LIMIT);
   inHand=pile.splice(-5);
   enemyCards=enemyPile.splice(-5);
   loading=false;render();
-  notice.textContent=inHand.length?"Toque no baralho à direita para comprar cartas.":"Sua coleção está vazia. Invoque cartas antes de jogar.";
+  notice.textContent=inHand.length?"Mão inicial: 5 cartas. Compra disponível quando houver espaço na mão.":"Sua coleção está vazia. Invoque cartas antes de jogar.";
  }catch(err){loading=false;render();notice.textContent="Não foi possível carregar as cartas: "+err.message}
 };
