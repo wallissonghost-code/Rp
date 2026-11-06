@@ -6,7 +6,7 @@ window.arcanaArena=async function(root){
  for(const side of ["enemy","own"]){
   const area=document.createElement("div");area.className="arcana-side "+side;
   const slots=document.createElement("div");slots.className="arcana-slots";
-  for(let i=0;i<11;i++){const slot=document.createElement("div");slot.className="arcana-slot";slot.setAttribute("aria-label","Posição "+(i+1)+" vazia");slots.append(slot)}
+  for(let i=0;i<10;i++){const slot=document.createElement("div");slot.className="arcana-slot";slot.setAttribute("aria-label","Posição "+(i+1)+" vazia");slots.append(slot)}
   const habitat=document.createElement("div");habitat.className="arcana-habitat";habitat.setAttribute("aria-label","Posição de habitat");
   const habitatLabel=document.createElement("span");habitatLabel.textContent="HABITAT";habitat.append(habitatLabel);
   area.append(slots,habitat);field.append(area);
