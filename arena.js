@@ -1,5 +1,5 @@
 /* ARCANA arena: real collection-based draw pile and five-card opening hands.
-   Card placement, turns and combat are not implemented yet. */
+   Card placement is being developed; turns and combat are not implemented yet. */
 window.arcanaArena=async function(root){
  root.replaceChildren();root.className="arcana-battle";
  const field=document.createElement("section");field.className="arcana-battlefield";
