@@ -2,12 +2,22 @@ if(!document.querySelector('link[data-arcana-collection]')){const css=document.c
 if(!document.querySelector('link[data-arcana-arena]')){const css=document.createElement('link');css.rel='stylesheet';css.href='./arena-premium.css?v=052';css.dataset.arcanaArena='';document.head.append(css)}
 const info={"Jogar":"","Coleção":"Cartas de todas as raridades ficarão disponíveis nesta área.","Loja":"Invocações e recursos disponíveis.","Invocação":"Invoque cartas usando moedas.","Configurações":"Preferências do jogo.","Perfil":"Seu progresso e suas conquistas aparecerão aqui.","Torneios":"Competições do ARCANA."};const screen=document.getElementById('screen');
 const dock=document.createElement('footer');dock.className='arcana-page-dock bottom';
-const lobbyTab=document.createElement('button');lobbyTab.type='button';lobbyTab.className='arcana-lobby-tab';lobbyTab.textContent='⌂ Lobby';lobbyTab.addEventListener('click',()=>closePage());
 const dockNav=document.createElement('nav');dockNav.className='actions';dockNav.setAttribute('aria-label','Navegação principal');
-dock.append(lobbyTab,dockNav);screen.append(dock);
-for(const original of document.querySelectorAll('.app .bottom [data-page]')){
- const tab=original.cloneNode(true);tab.type='button';
- tab.addEventListener('click',()=>openPage(tab.dataset.page));dockNav.append(tab);
+dock.append(dockNav);screen.append(dock);
+const navOrder=['Coleção','Invocação','Lobby','Loja','Torneios'];
+for(const name of navOrder){
+ let tab;
+ if(name==='Lobby'){
+  tab=document.createElement('button');tab.type='button';tab.className='arcana-lobby-tab';
+  tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8v10H3z"/><path d="M9 21v-7h6v7"/></svg><span>LOBBY</span>';
+  tab.addEventListener('click',closePage);
+ }else{
+  const original=document.querySelector('.app .bottom [data-page="'+name+'"]');
+  if(!original)continue;
+  tab=original.cloneNode(true);tab.type='button';
+  tab.addEventListener('click',()=>openPage(name));
+ }
+ dockNav.append(tab);
 }
 function updateDock(active){for(const tab of dockNav.querySelectorAll('[data-page]')){const selected=tab.dataset.page===active;tab.classList.toggle('active',selected);if(selected)tab.setAttribute('aria-current','page');else tab.removeAttribute('aria-current')}}
 let matchTimer=null;function clearMatchTimer(){if(matchTimer!==null){clearTimeout(matchTimer);matchTimer=null}}function openPage(name){clearMatchTimer();updateDock(name);document.getElementById('title').textContent=name;document.getElementById('description').textContent=info[name];const content=document.getElementById('content');content.innerHTML='';if(name==='Jogar'){
