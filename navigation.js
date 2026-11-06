@@ -1,6 +1,16 @@
 if(!document.querySelector('link[data-arcana-collection]')){const css=document.createElement('link');css.rel='stylesheet';css.href='./collection-premium.css';css.dataset.arcanaCollection='';document.head.append(css)}
 if(!document.querySelector('link[data-arcana-arena]')){const css=document.createElement('link');css.rel='stylesheet';css.href='./arena-premium.css?v=052';css.dataset.arcanaArena='';document.head.append(css)}
-const info={"Jogar":"","Coleção":"Cartas de todas as raridades ficarão disponíveis nesta área.","Loja":"Invocações e recursos disponíveis.","Invocação":"Invoque cartas usando moedas.","Configurações":"Preferências do jogo.","Perfil":"Seu progresso e suas conquistas aparecerão aqui.","Torneios":"Competições do ARCANA."};const screen=document.getElementById('screen');let matchTimer=null;function clearMatchTimer(){if(matchTimer!==null){clearTimeout(matchTimer);matchTimer=null}}function openPage(name){clearMatchTimer();document.getElementById('title').textContent=name;document.getElementById('description').textContent=info[name];const content=document.getElementById('content');content.innerHTML='';if(name==='Jogar'){
+const info={"Jogar":"","Coleção":"Cartas de todas as raridades ficarão disponíveis nesta área.","Loja":"Invocações e recursos disponíveis.","Invocação":"Invoque cartas usando moedas.","Configurações":"Preferências do jogo.","Perfil":"Seu progresso e suas conquistas aparecerão aqui.","Torneios":"Competições do ARCANA."};const screen=document.getElementById('screen');
+const dock=document.createElement('footer');dock.className='arcana-page-dock bottom';
+const lobbyTab=document.createElement('button');lobbyTab.type='button';lobbyTab.className='arcana-lobby-tab';lobbyTab.textContent='⌂ Lobby';lobbyTab.addEventListener('click',()=>closePage());
+const dockNav=document.createElement('nav');dockNav.className='actions';dockNav.setAttribute('aria-label','Navegação principal');
+dock.append(lobbyTab,dockNav);screen.append(dock);
+for(const original of document.querySelectorAll('.app .bottom [data-page]')){
+ const tab=original.cloneNode(true);tab.type='button';
+ tab.addEventListener('click',()=>openPage(tab.dataset.page));dockNav.append(tab);
+}
+function updateDock(active){for(const tab of dockNav.querySelectorAll('[data-page]')){const selected=tab.dataset.page===active;tab.classList.toggle('active',selected);if(selected)tab.setAttribute('aria-current','page');else tab.removeAttribute('aria-current')}}
+let matchTimer=null;function clearMatchTimer(){if(matchTimer!==null){clearTimeout(matchTimer);matchTimer=null}}function openPage(name){clearMatchTimer();updateDock(name);document.getElementById('title').textContent=name;document.getElementById('description').textContent=info[name];const content=document.getElementById('content');content.innerHTML='';if(name==='Jogar'){
  screen.classList.add('matchmaking-mode');
  screen.classList.remove('arena-mode');
  const searching=document.createElement('section');searching.className='arcana-searching';
