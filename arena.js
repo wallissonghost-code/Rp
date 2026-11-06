@@ -2,13 +2,13 @@
    Card placement is being developed; turns and combat are not implemented yet. */
 window.arcanaArena=async function(root){
  root.replaceChildren();root.className="arcana-battle";
- const field=document.createElement("section");field.className="arcana-battlefield";
+ const field=document.createElement("section");field.className="arcana-battlefield";const ownSlots=[];let habitatSlot;
  for(const side of ["enemy","own"]){
   const area=document.createElement("div");area.className="arcana-side "+side;
   const slots=document.createElement("div");slots.className="arcana-slots";
-  for(let i=0;i<10;i++){const slot=document.createElement("div");slot.className="arcana-slot";slot.setAttribute("aria-label","Posição "+(i+1)+" vazia");slots.append(slot)}
+  for(let i=0;i<10;i++){const slot=document.createElement("div");slot.className="arcana-slot";slot.setAttribute("aria-label","Posição "+(i+1)+" vazia");slots.append(slot);if(side==="own")ownSlots.push(slot)}
   const habitat=document.createElement("div");habitat.className="arcana-habitat";habitat.setAttribute("aria-label","Posição de habitat");
-  const habitatLabel=document.createElement("span");habitatLabel.textContent="HABITAT";habitat.append(habitatLabel);
+  const habitatLabel=document.createElement("span");habitatLabel.textContent="HABITAT";habitat.append(habitatLabel);if(side==="own")habitatSlot=habitat;
   area.append(slots,habitat);field.append(area);
  }
  const enemyHand=document.createElement("div");enemyHand.className="arcana-enemy-hand";enemyHand.setAttribute("aria-label","Mão do adversário");
@@ -16,8 +16,8 @@ window.arcanaArena=async function(root){
  const cards=document.createElement("div");cards.className="arcana-hand-cards";cards.setAttribute("aria-label","Suas cartas na mão");
  const deck=document.createElement("button");deck.type="button";deck.className="arcana-draw-deck";deck.setAttribute("aria-label","Comprar carta do baralho");deck.innerHTML='<span class="arcana-deck-symbol">✧</span><span class="arcana-deck-count">0</span>';
  const notice=document.createElement("div");notice.className="arcana-draw-feedback";notice.setAttribute("role","status");
- hand.append(cards,deck,notice);root.append(field,enemyHand,hand);
- let pile=[],inHand=[],enemyPile=[],enemyCards=[],loading=true;
+ const grave=document.createElement("button");grave.type="button";grave.className="arcana-grave";grave.textContent="✝ Cemitério";hand.append(grave,cards,deck,notice);root.append(field,enemyHand,hand);
+ let pile=[],inHand=[],enemyPile=[],enemyCards=[],loading=true,graveyard=[];const placements=new Map();
  const shuffle=arr=>{for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr};
  const DECK_LIMIT=20, HAND_LIMIT=5;
  const buildPile=(catalog,owned)=>{const byCode=new Map(catalog.map(c=>[c.code,c]));const out=[];const seen=new Set();for(const o of owned){if(Number(o.copies)<=0||seen.has(o.card_code))continue;const card=byCode.get(o.card_code);if(!card)continue;seen.add(o.card_code);out.push({...card,level:o.upgrade_level||1})}return shuffle(out).slice(0,DECK_LIMIT)};
