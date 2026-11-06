@@ -40,8 +40,8 @@ window.arcanaArena=async function(root){
  notice.textContent="Preparando os baralhos...";
  render();
  try{
-  if(!window.arcanaSession){notice.textContent="Entre na sua conta para usar suas cartas.";loading=false;render();return}
   await arcanaRefresh();
+  if(!arcanaSession){notice.textContent="Sessão expirada. Abra Perfil para entrar novamente.";loading=false;render();return}
   const [catalog,owned]=await Promise.all([
    arcanaRequest("/rest/v1/card_catalog?select=code,name,rarity,element,card_type","GET",null,arcanaSession.access_token),
    arcanaRequest("/rest/v1/player_cards?select=card_code,copies,upgrade_level","GET",null,arcanaSession.access_token)
