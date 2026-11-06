@@ -28,7 +28,7 @@ window.arcanaArena=async function(root){
    const glyph=document.createElement("span");glyph.className="arcana-hand-glyph";glyph.textContent=({Fogo:"♨",Água:"◈",Vento:"≋",Terra:"◆",Natureza:"❧"})[card.element]||"✧";
    const name=document.createElement("b");name.textContent=card.name;
    const meta=document.createElement("small");meta.textContent=(card.rarity||"Carta")+" · Nv. "+card.level;
-   tile.append(glyph,name,meta);tile.onclick=()=>{notice.textContent=card.name+" selecionada. Posicionamento em desenvolvimento."};cards.append(tile);
+   tile.append(glyph,name,meta);tile.addEventListener("pointerdown",e=>startDrag(e,tile,card));cards.append(tile);
   }
   const counter=deck.querySelector(".arcana-deck-count");counter.textContent=String(pile.length);
   deck.disabled=loading||!pile.length||inHand.length>=HAND_LIMIT;
